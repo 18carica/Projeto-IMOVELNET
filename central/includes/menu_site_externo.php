@@ -19,7 +19,7 @@ $menu_nav = "
                     <li class='nav-item'><a class='nav-link' href='#'>Info 2</a></li>
                     <li class='nav-item'><a class='nav-link' href='#'>Sobre Nós</a></li>
                     <li class='nav-item'><a class='nav-link' href='contato.php'>Contato</a></li>
-                    <li class='nav-item'><a class='nav-link' href='extranet.php'>Extranet</a></li>
+                    <li class='nav-item'><a class='nav-link' href='./sistema/index.php'>Login</a></li>
                 </ul>
             </div>
         </div>
