@@ -30,6 +30,7 @@ if (!isset($_SESSION['usuario'])) {
                         <h5 class="card-title">Clientes</h5>
                         <p class="card-text">Gerencie seus clientes.</p>
                         <a href="../sistema/clientes/index.php" class="btn btn-primary">Ver Clientes</a>
+                        <a href="../sistema/clientes/cliente_cadastrar.php" class="btn btn-primary">Cadastrar Clientes</a>
                     </div>
                 </div>
             </div>
@@ -39,6 +40,7 @@ if (!isset($_SESSION['usuario'])) {
                         <h5 class="card-title">Funcionários</h5>
                         <p class="card-text">Gerencie seus funcionários.</p>
                         <a href="../sistema/funcionarios/index.php" class="btn btn-primary">Ver Funcionários</a>
+                        <a href="../sistema/funcionarios/funcionarios_cadastrar.php" class="btn btn-primary">Cadastrar Funcionarios</a>
                     </div>
                 </div>
             </div>
@@ -48,6 +50,7 @@ if (!isset($_SESSION['usuario'])) {
                         <h5 class="card-title">Imóveis</h5>
                         <p class="card-text">Gerencie seus imóveis.</p>
                         <a href="../sistema/imoveis/index.php" class="btn btn-primary">Ver Imóveis</a>
+                        <a href="../sistema/imoveis/imoveis_cadastrar.php" class="btn btn-primary">Cadastrar Imóveis</a>
                     </div>
                 </div>
             </div>

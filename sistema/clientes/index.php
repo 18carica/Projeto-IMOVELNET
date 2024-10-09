@@ -77,7 +77,6 @@ $stmt = $conn->query($sql);
                         echo '<td>
                                 <a href="cliente_detalhes.php?codigo=' . $row["codigo"] . '" class="btn btn-info btn-sm">Ver Detalhes</a>
                                 <a href="cliente_editar.php?codigo=' . $row["codigo"] . '" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="cliente_excluir.php?codigo=' . $row["codigo"] . '" class="btn btn-danger btn-sm">Excluir</a>
                               </td>';
                         echo '</tr>';
                     }

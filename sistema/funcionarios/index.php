@@ -73,9 +73,8 @@ $stmt = $conn->query($sql);
                         echo '<td>' . $row["salario"] . '</td>';
                         echo '<td>' . ($row["status"] == '1' ? 'Ativo' : 'Inativo') . '</td>';
                         echo '<td>
-                                <a href="funcionario_detalhes.php?codigo=' . $row["codigo"] . '" class="btn btn-info btn-sm">Ver Detalhes</a>
-                                <a href="funcionario_editar.php?codigo=' . $row["codigo"] . '" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="funcionario_excluir.php?codigo=' . $row["codigo"] . '" class="btn btn-danger btn-sm">Excluir</a>
+                                <a href="funcionarios_detalhes.php?codigo=' . $row["codigo"] . '" class="btn btn-info btn-sm">Ver Detalhes</a>
+                                <a href="funcionarios_editar.php?codigo=' . $row["codigo"] . '" class="btn btn-warning btn-sm">Editar</a>
                               </td>';
                         echo '</tr>';
                     }
