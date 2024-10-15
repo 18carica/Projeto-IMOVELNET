@@ -39,7 +39,7 @@ include "../../central/includes/validar_sessao.php";
                     <ul class='navbar-nav ms-auto'>
                         <li class='nav-item'><a class='nav-link' href='imovel_listagem.php'>Listar</a></li>                    
                         <li class='nav-item'><a class='nav-link' href='imovel_cadastrar.php'>Cadastrar</a></li>
-                        <li class='nav-item'><a class='nav-link active' href='../index2.php'>Menu Funcionário</a></li>
+                        <li class='nav-item'><a class='nav-link active' href='../index2.php'>DASHBOARD</a></li>
                         <li class='nav-item'><a class='nav-link active' href="../../central/includes/sair.php">Sair</a></li>
                     </ul>
                 </div>

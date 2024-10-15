@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </button>
                 <div class='collapse navbar-collapse' id='navbarNav'>
                     <ul class='navbar-nav ms-auto'>
-                        <li class='nav-item'><a class='nav-link' href='clientes_listagem.php'>Listar</a></li>                    
+                        <li class='nav-item'><a class='nav-link' href='cliente_listagem.php'>Listar</a></li>                    
                         <li class='nav-item'><a class='nav-link active' href='cliente_cadastrar.php'>Cadastrar</a></li>
                         <li class='nav-item'><a class='nav-link' href='index.php'>Voltar</a></li>
                         <li class='nav-item'><a class='nav-link' href="../../central/includes/sair.php">Sair</a></li>

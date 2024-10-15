@@ -4,9 +4,9 @@ ini_set('display_errors', 1);
 
 if($_SESSION['nome'] != null){
     $restaSessao = $_SESSION['expire'] - strtotime('now');
-    echo $restaSessao . '<br>'; 
-    echo $_SESSION['expire'] . '<br>';
-    echo strtotime('now');
+    $restaSessao . '<br>'; 
+    $_SESSION['expire'] . '<br>';
+    strtotime('now');
 
 
     if ($restaSessao < 1) {

@@ -118,7 +118,7 @@ else{
             <label class="form-label">Última Alteração:</label>
             <p><?php echo $cliente['dt_alt']; ?></p>
         </div>
-        <a href="cliente_alterar.php?codigo=<?php echo $cliente['id_clientes']; ?>" class="btn btn-primary">Editar</a>
+        <a href="cliente_editar.php?codigo=<?php echo $cliente['id_clientes']; ?>" class="btn btn-primary">Editar</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -74,7 +74,7 @@ include "../central/includes/validar_sessao.php";
         <!-- Navbar -->
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-                <h3>Página do Funcionário</h3>
+                <h3>DASHBOARD</h3>
             </div>
         </nav>
 
