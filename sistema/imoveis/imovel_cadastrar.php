@@ -6,14 +6,30 @@ ini_set('display_errors', 1);
 include '../../central/includes/conexao.php';
 include "../../central/includes/validar_sessao.php";
 
+$sql_cliente = "SELECT id_clientes, nome_completo FROM clientes";
+$result_tipos = $conn->query($sql_cliente);
+if ($result_tipos->num_rows > 0) {
+    while ($row = $result_tipos->fetch_assoc()) {
+        $clientes[] = $row;
+    }
+}
+
+$sql_loja = "SELECT id_loja, nome_loja FROM lojas";
+$result_tipos = $conn->query($sql_loja);
+if ($result_tipos->num_rows > 0) {
+    while ($row = $result_tipos->fetch_assoc()) {
+        $lojas[] = $row;
+    }
+}
+
 // Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nome_completo = $_POST['nome_completo'] ?? null;
-    $tipo_pessoa = $_POST['tipo_pessoa'] ?? null;
-    $documento = $_POST['documento'] ?? null;
-    $tipo_cliente = $_POST['tipo_cliente'] ?? null;
-    $email = $_POST['email'] ?? null;
-    $telefone = $_POST['telefone'] ?? null;
+    $id_cliente = $_POST['id_cliente'] ?? null;
+    $id_loja = $_POST['id_loja'] ?? null;
+    $tipo_imovel = $_POST['tipo_imovel'] ?? null;
+    $qtd_comodos = $_POST['qtd_comodos'] ?? null;
+    $m2 = $_POST['m2'] ?? null;
+    $qtd_fotos = $_POST['qtd_fotos'] ?? null;
     $cep = $_POST['cep'] ?? null;
     $endereco = $_POST['endereco'] ?? null;
     $endereco_numero = $_POST['endereco_numero'] ?? null;
@@ -41,29 +57,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_insert->execute();
     }
 
-    // Atualizar os dados do cliente no banco de dados
-    $sql = "INSERT INTO clientes (
-            nome_completo, tipo_pessoa, documento, tipo_cliente, email,
-            telefone, cep, endereco, endereco_numero, complemento, bairro,
-            cidade, estado, obs, status, dt_reg, dt_alt)
+    // Atualizar os dados do imovel no banco de dados
+    $sql = "INSERT INTO imoveis ( 
+                id_cliente, id_loja, tipo_imovel, qtd_comodos, 
+                m2, qtd_fotos, cep, endereco, endereco_numero,
+                bairro, complemento, cidade, estado, obs,
+                status, dt_reg, dt_alt)
             VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
     
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssssssi", 
-        $nome_completo, $tipo_pessoa, $documento, $tipo_cliente, 
-        $email, $telefone, $cep, $endereco, $endereco_numero, 
+    $stmt->bind_param("sssssssssssssss", 
+        $id_cliente, $id_loja, $tipo_imovel, $qtd_comodos, 
+        $m2, $qtd_fotos, $cep, $endereco, $endereco_numero, 
         $complemento, $bairro, $cidade, $estado, $obs, $status);
 
+    session_start();
     if ($stmt->execute()) {
-        session_start();
         $_SESSION["msg"] = "<div class='alert alert-primary' role='aviso'>
-                                Cliente cadastrado com sucesso!
+                                Imóvel cadastrado com sucesso!
                             </div>";
-        header("Location: cliente_cadastrar.php"); // Redirecionar para a listagem de clientes
+        header("Location: imovel_listagem.php"); // Redirecionar para a listagem de imoveis
         exit();
     } else {
-        echo "Erro ao cadastrar cliente: " . $conn->error;
+        echo "Erro ao atualizar os dados: " . $conn->error;
     }
 }
 ?>
@@ -73,68 +90,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Cliente</title>
+    <title>Cadastrar Imóvel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar -->
     <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-            <div class='container-fluid'>
-                <a class='navbar-brand' href='#'>ImovelNet - CLIENTES</a>
-                <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
-                    <span class='navbar-toggler-icon'></span>
-                </button>
-                <div class='collapse navbar-collapse' id='navbarNav'>
-                    <ul class='navbar-nav ms-auto'>
-                        <li class='nav-item'><a class='nav-link' href='clientes_listagem.php'>Listar</a></li>                    
-                        <li class='nav-item'><a class='nav-link active' href='cliente_cadastrar.php'>Cadastrar</a></li>
-                        <li class='nav-item'><a class='nav-link' href='index.php'>Voltar</a></li>
-                        <li class='nav-item'><a class='nav-link' href="../../central/includes/sair.php">Sair</a></li>
-                    </ul>
-                </div>
+        <div class='container-fluid'>
+            <a class='navbar-brand' href='../../index.php'>ImovelNet</a>
+            <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
+                <span class='navbar-toggler-icon'></span>
+            </button>
+            <div class='collapse navbar-collapse' id='navbarNav'>
+                <ul class='navbar-nav ms-auto'>
+                    <li class='nav-item'><a class='nav-link' href='imovel_listagem.php'>Listar</a></li>                    
+                    <li class='nav-item'><a class='nav-link active' href='imovel_cadastrar.php'>Cadastrar</a></li>
+                    <li class='nav-item'><a class='nav-link' href='index.php'>Voltar</a></li>
+                    <li class='nav-item'><a class='nav-link' href="../../central/includes/sair.php">Sair</a></li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
     <!-- Formulário de Edição -->
     <div class="container my-5">
-        <h3 class="text-center mb-4">Cadastrar Cliente</h3>
+        <h3 class="text-center mb-4">Cadastrar Imóvel</h3>
         <form method="post" action="">
             <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="nome_completo" class="form-label">Nome Completo</label>
-                    <input type="text" class="form-control" id="nome_completo" name="nome_completo" required>
-                </div>
                 <div class="col-md-3">
-                    <label for="tipo_pessoa" class="form-label">Tipo de Pessoa</label>
-                    <select class="form-select" id="tipo_pessoa" name="tipo_pessoa" required>
-                        <option value="PF">Pessoa Física</option>
-                        <option value="PJ">Pessoa Jurídica</option>
-                        <option value="ESTRANGEIRO">Estrangeiro</option>
+                    <label for="id_cliente" class="form-label">Cliente</label><br>
+                    <select name="id_cliente" id="id_cliente">
+                        <option value="">Nenhum</option>
+                        <?php foreach ($clientes as $cliente): ?>
+                            <option value="<?php echo $cliente['id_clientes']; ?>"><?php echo $cliente['nome_completo']; ?></option>
+                        <?php endforeach;?>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label for="documento" class="form-label">Documento</label>
-                    <input type="text" class="form-control" id="documento" name="documento" required>
+                    <label for="id_loja" class="form-label">Loja</label><br>
+                    <select name="id_loja" id="id_loja">
+                        <option value="">Nenhum</option>
+                        <?php foreach ($lojas as $loja): ?>
+                            <option value="<?php echo $loja['id_loja']; ?>"><?php echo $loja['nome_loja']; ?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="tipo_imovel" class="form-label">Tipo de Imóvel</label>
+                    <select class="form-select" id="tipo_imovel" name="tipo_imovel" required>
+                        <option value="CASA">Casa</option>
+                        <option value="TERRENO">Terreno</option>
+                        <option value="LOJA">Loja</option>
+                        <option value="APTO">Apartamento</option>
+                        <option value="COBERTURA">Cobertura</option>
+                    </select>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-3">
-                    <label for="tipo_cliente" class="form-label">Tipo de Cliente</label>
-                    <select class="form-select" id="tipo_cliente" name="tipo_cliente" required>
-                        <option value="PROPRIETARIO">Proprietário</option>
-                        <option value="COMPRADOR">Comprador</option>
-                        <option value="VENDEDOR">Vendedor</option>
-                        <option value="VENDEDOR">Locador</option>
-                    </select>
+                    <label for="qtd_comodos" class="form-label">Quantidade de Cômodos</label>
+                    <input type="text" class="form-control" id="qtd_comodos" name="qtd_comodos" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="email" class="form-label">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="m2" class="form-label">Metros Quadrados</label>
+                    <input type="number" class="form-control" id="m2" name="m2" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="telefone" class="form-label">Telefone</label>
-                    <input type="text" class="form-control" id="telefone" name="telefone" required>
+                    <label for="qtd_fotos" class="form-label">Quantidade de Fotos</label>
+                    <input type="number" class="form-control" id="qtd_fotos" name="qtd_fotos" required>
                 </div>
                 <div class="col-md-3">
                     <label for="cep" class="form-label">CEP</label>
@@ -160,17 +184,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="row mb-3">
                 <div class="col-md-2">
                     <label for="cidade" class="form-label">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" value="<?php echo htmlspecialchars($cep_data['cidade'] ?? ''); ?>" required>
+                    <input type="text" class="form-control" id="cidade" name="cidade" required>
                 </div>
 
                 <div class="col-md-2">
                     <label for="bairro" class="form-label">Bairro</label>
-                    <input type="text" class="form-control" id="bairro" name="bairro" value="<?php echo htmlspecialchars($cep_data['bairro'] ?? ''); ?>" required>
+                    <input type="text" class="form-control" id="bairro" name="bairro" required>
                 </div>
 
                 <div class="col-md-2">
                     <label for="estado" class="form-label">Estado</label>
-                    <input type="text" class="form-control" id="estado" name="estado" value="<?php echo htmlspecialchars($cep_data['estado'] ?? ''); ?>" required>
+                    <input type="text" class="form-control" id="estado" name="estado" required>
                 </div>
                 <div class="col-md-6">
                     <label for="obs" class="form-label">Observações</label>
@@ -188,8 +212,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Cadastrar Cliente</button>
-            <a href="index.php" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <a href="imovel_listagem.php" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 

@@ -1,7 +1,7 @@
 <?php
 
 //Redirecionando para home
-$base = "http://localhost/imovelnet/";
+$base = "http://localhost/Projeto-IMOVELNET/";
 $redireciona = $base;
 
 ?>

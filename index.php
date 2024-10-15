@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-include "central/includes/menu_site_externo.php";
+include "./central/includes/menu_site_externo.php";
 
 ?>
 <!DOCTYPE html>
