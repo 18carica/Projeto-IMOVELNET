@@ -73,7 +73,9 @@ Projeto-IMOVELNET/
 
 1. **Configure o arquivo de conexão com o banco de dados em**:
 
-   `/central/includes/db_connection.php`
+   ```bash
+   /central/includes/db_connection.php
+   ```
 
 2. **Execute o script SQL no banco de dados** para criar as tabelas necessárias.
 
